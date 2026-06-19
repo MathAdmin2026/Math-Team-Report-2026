@@ -28,16 +28,16 @@
         header h1 { color: #2c3e50; margin-bottom: 5px; font-size: 2rem; }
         header p { color: #7f8c8d; margin: 0; font-size: 1rem; }
 
-        /* Filter Buttons Styling */
+        /* Filter Buttons Container */
         .filter-container {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 20px;
             margin-bottom: 30px;
         }
         .btn {
-            padding: 10px 24px;
-            font-size: 1rem;
+            padding: 12px 30px;
+            font-size: 1.05rem;
             font-weight: 600;
             border: none;
             border-radius: 25px;
@@ -47,35 +47,54 @@
             color: #555;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
-        .btn.active { color: white; }
-        #btn-phoenix.active { background-color: #ff6b6b; }
-        #btn-sibs.active { background-color: #4dadf7; }
-        
         .btn:hover {
             transform: translateY(-1px);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
+        
+        /* Requested Accent Button Rules */
+        #btn-phoenix.active { background-color: #e67e22; color: white; } /* Orange Accent */
+        #btn-sibs.active { background-color: #e74c3c; color: white; }    /* Red Accent */
 
-        /* Container Layout */
+        /* Layout Architecture */
         .grid-container {
             display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
+            flex-direction: column;
+            gap: 25px;
             max-width: 1200px;
             margin: 0 auto;
         }
-        .card {
+        .status-section {
             background: #ffffff;
-            flex: 1;
-            min-width: 280px;
-            max-width: 360px;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
+
+        /* Table Responders and Grid Styles */
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            text-align: left;
+        }
+        th, td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #f1f2f6;
+            font-size: 0.95rem;
+        }
+        th {
+            background-color: #f8f9fa;
+            color: #34495e;
+            font-weight: 600;
+        }
+        tr:hover { background-color: #fafafa; }
+
         .chart-box {
-            flex: 1 1 100%;
             max-width: 380px;
             margin: 20px auto 0 auto;
             background: #ffffff;
@@ -84,9 +103,7 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
         
-        .hidden-item {
-            display: none !important;
-        }
+        .hidden-row { display: none !important; }
     </style>
 </head>
 <body>
@@ -103,102 +120,55 @@
 
     <div class="grid-container">
         
-        <div class="card" style="border-top: 5px solid #2ecc71;">
-            <h2 style="margin-top: 0; font-size: 1.3rem; color: #2c3e50; border-bottom: 2px solid #ecf0f1; padding-bottom: 10px;">Finished Titles</h2>
-            <ul id="finished-list" style="list-style-type: disc; padding-left: 20px; line-height: 1.7; margin-bottom: 0;">
-                <li class="project-item" data-team="Phoenix">Grade 1 Math Textbook (Phoenix)</li>
-                <li class="project-item" data-team="Sibs">Grade 2 Math Textbook (Sibs)</li>
-            </ul>
+        <div class="status-section" style="border-left: 5px solid #2ecc71;">
+            <h2 style="margin-top: 0; color: #2ecc71; font-size: 1.4rem;">Finished Titles</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Book Title</th>
+                            <th>Artist</th>
+                            <th>Editor</th>
+                            <th>Target Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="finished-body">
+                        <tr class="project-row" data-team="Phoenix">
+                            <td><b>Grade 1 Math Textbook</b></td>
+                            <td>Juan Cruz</td>
+                            <td>Jane Doe</td>
+                            <td>May 15, 2026</td>
+                            <td><span style="color:#2ecc71; font-weight:600;">Finished</span></td>
+                        </tr>
+                        <tr class="project-row" data-team="Sibs">
+                            <td><b>Grade 2 Math Textbook</b></td>
+                            <td>Maria Santos</td>
+                            <td>John Smith</td>
+                            <td>May 20, 2026</td>
+                            <td><span style="color:#2ecc71; font-weight:600;">Finished</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        <div class="card" style="border-top: 5px solid #3498db;">
-            <h2 style="margin-top: 0; font-size: 1.3rem; color: #2c3e50; border-bottom: 2px solid #ecf0f1; padding-bottom: 10px;">Ongoing Titles</h2>
-            <ul id="ongoing-list" style="list-style-type: disc; padding-left: 20px; line-height: 1.7; margin-bottom: 0;">
-                <li class="project-item" data-team="Phoenix">Grade 3 Math Textbook (Phoenix)</li>
-                <li class="project-item" data-team="Sibs">Grade 4 Math Textbook (Sibs)</li>
-            </ul>
-        </div>
-
-        <div class="card" style="border-top: 5px solid #e74c3c;">
-            <h2 style="margin-top: 0; font-size: 1.3rem; color: #2c3e50; border-bottom: 2px solid #ecf0f1; padding-bottom: 10px;">Delayed Titles</h2>
-            <ul id="delayed-list" style="list-style-type: disc; padding-left: 20px; line-height: 1.7; margin-bottom: 0;">
-                <li class="project-item" data-team="Phoenix">Grade 5 Math Textbook (Phoenix)</li>
-                <li class="project-item" data-team="Sibs">Grade 6 Math Textbook (Sibs)</li>
-            </ul>
-        </div>
-
-        <div class="chart-box">
-            <h3 style="text-align: center; margin-top: 0; margin-bottom: 15px; color: #2c3e50; font-size: 1.2rem;">Project Status Breakdown</h3>
-            <canvas id="statusPieChart" style="max-width: 100%; height: auto;"></canvas>
-        </div>
-
-    </div>
-
-    <script>
-        let chartInstance = null;
-
-        function updateChart() {
-            try {
-                const canvas = document.getElementById('statusPieChart');
-                if (!canvas) return;
-                const ctx = canvas.getContext('2d');
-
-                // Counts only items that are visible
-                const finishedCount = document.querySelectorAll('#finished-list .project-item:not(.hidden-item)').length;
-                const ongoingCount = document.querySelectorAll('#ongoing-list .project-item:not(.hidden-item)').length;
-                const delayedCount = document.querySelectorAll('#delayed-list .project-item:not(.hidden-item)').length;
-
-                if (chartInstance) {
-                    chartInstance.destroy();
-                }
-
-                if (typeof Chart !== 'undefined') {
-                    chartInstance = new Chart(ctx, {
-                        type: 'pie',
-                        data: {
-                            labels: ['Finished', 'Ongoing', 'Delayed'],
-                            datasets: [{
-                                data: [finishedCount, ongoingCount, delayedCount],
-                                backgroundColor: ['#2ecc71', '#3498db', '#e74c3c'],
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            plugins: { legend: { position: 'bottom' } }
-                        }
-                    });
-                }
-            } catch (e) {
-                console.error("Chart error: ", e);
-            }
-        }
-
-        window.filterTeam = function(teamName) {
-            // Toggle active button highlight
-            document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
-            if(teamName === 'Phoenix') document.getElementById('btn-phoenix').classList.add('active');
-            if(teamName === 'Sibs') document.getElementById('btn-sibs').classList.add('active');
-
-            // Filter items by checking data-team matching attribute
-            document.querySelectorAll('.project-item').forEach(item => {
-                const itemTeam = item.getAttribute('data-team');
-                if (itemTeam === teamName) {
-                    item.classList.remove('hidden-item');
-                } else {
-                    item.classList.add('hidden-item');
-                }
-            });
-
-            // Re-render pie chart calculations
-            updateChart();
-        };
-
-        // Initialize display to show Phoenix by default on load
-        window.onload = function() {
-            filterTeam('Phoenix');
-        };
-    </script>
-
-</body>
-</html>
+        <div class="status-section" style="border-left: 5px solid #3498db;">
+            <h2 style="margin-top: 0; color: #3498db; font-size: 1.4rem;">Ongoing Titles</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Book Title</th>
+                            <th>Artist</th>
+                            <th>Editor</th>
+                            <th>Target Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ongoing-body">
+                        <tr class="project-row" data-team="Phoenix">
+                            <td><b>Grade 3 Math Textbook</b></td>
+                            <td>Juan Cruz</td>
+                            <td>Jane Doe</td>
+                            <td>June 30, 2026</td>
