@@ -19,9 +19,10 @@ body {
 .header h1 { margin: 0 0 8px 0; font-size: 1.6rem; }
 .header p { margin: 0; color: #94a3b8; font-size: 0.9rem; }
 
-/* Main layout wrapper */
+/* Main layout wrapper - Expanded for wider screens */
 .vertical-container {
-    max-width: 1100px;
+    max-width: 1400px; /* Changed from 1100px to give you much more horizontal space */
+    width: 92%;        /* Allows it to scale beautifully on ultra-wide monitors */
     margin: 0 auto;
     padding: 0 15px;
 }
@@ -76,6 +77,7 @@ body {
 .company-block {
     background: #ffffff;
     padding: 20px;
+    padding-top: 5px; /* Added to keep the spacing perfect now that the headers are gone */
     margin-bottom: 25px;
     border-radius: 8px;
     border: 1px solid #e2e8f0;
@@ -125,9 +127,9 @@ th, td {
     word-wrap: break-word; /* Prevents overflow stretching the tables */
 }
 
-/* Set precise vertical column alignments for 5-Column Tables (Finished & Ongoing) */
+/* Rebalanced vertical column alignments for 5-Column Tables (Finished & Ongoing) */
 .Finished table th:nth-child(1), .Finished table td:nth-child(1),
-.Ongoing table th:nth-child(1), .Ongoing table td:nth-child(1) { width: 35%; } /* Book Title */
+.Ongoing table th:nth-child(1), .Ongoing table td:nth-child(1) { width: 30%; } /* Shorter Book Title */
 
 .Finished table th:nth-child(2), .Finished table td:nth-child(2),
 .Ongoing table th:nth-child(2), .Ongoing table td:nth-child(2) { width: 18%; } /* Editor */
@@ -136,11 +138,18 @@ th, td {
 .Ongoing table th:nth-child(3), .Ongoing table td:nth-child(3) { width: 18%; } /* Artist */
 
 .Finished table th:nth-child(4), .Finished table td:nth-child(4),
-.Ongoing table th:nth-child(4), .Ongoing table td:nth-child(4) { width: 15%; } /* Date */
+.Ongoing table th:nth-child(4), .Ongoing table td:nth-child(4) { width: 18%; } /* Target/Completion Date */
 
 .Finished table th:nth-child(5), .Finished table td:nth-child(5),
-.Ongoing table th:nth-child(5), .Ongoing table td:nth-child(5) { width: 14%; } /* Status */
+.Ongoing table th:nth-child(5), .Ongoing table td:nth-child(5) { width: 16%; } /* Status/Progress */
 
+/* Rebalanced vertical column alignments for 6-Column Tables (Delayed) */
+.Delayed table th:nth-child(1), .Delayed table td:nth-child(1) { width: 22%; } /* Shorter Book Title */
+.Delayed table th:nth-child(2), .Delayed table td:nth-child(2) { width: 15%; } /* Editor */
+.Delayed table th:nth-child(3), .Delayed table td:nth-child(3) { width: 15%; } /* Artist */
+.Delayed table th:nth-child(4), .Delayed table td:nth-child(4) { width: 15%; } /* Revised Date */
+.Delayed table th:nth-child(5), .Delayed table td:nth-child(5) { width: 21%; } /* Reason for Delay */
+.Delayed table th:nth-child(6), .Delayed table td:nth-child(6) { width: 12%; } /* Status Tag */
 
 /* Set precise vertical column alignments for 6-Column Tables (Delayed) */
 .Delayed table th:nth-child(1), .Delayed table td:nth-child(1) { width: 25%; } /* Book Title */
@@ -175,4 +184,14 @@ th {
 @media screen and (max-width: 600px) {
     .filter-container { flex-direction: column; gap: 10px; }
     .filter-btn { width: 100%; }
+}
+
+/* Shorten long titles with a clean ellipsis (...) */
+table td strong {
+    display: inline-block;
+    max-width: 280px;         /* Adjust this number to make the title column narrower or wider */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: bottom;
 }
