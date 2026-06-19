@@ -55,8 +55,8 @@
         }
         
         /* Team Button Custom Color Definitions */
-        #btn-phoenix.active { background-color: #e67e22; color: white; } /* Orange Accent */
-        #btn-sibs.active { background-color: #e74c3c; color: white; }    /* Red Accent */
+        #btn-phoenix.active { background-color: #e67e22; color: white; }
+        #btn-sibs.active { background-color: #e74c3c; color: white; }
 
         /* Layout Architecture */
         .grid-container {
@@ -72,18 +72,42 @@
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
-        .status-section h2 {
+
+        /* Interactive Collapsible Dropdown Headers */
+        .section-header {
             margin-top: 0;
             font-size: 1.4rem;
             border-bottom: 2px solid #f1f2f6;
             padding-bottom: 8px;
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: opacity 0.2s ease;
+        }
+        .section-header:hover {
+            opacity: 0.8;
+        }
+        .arrow-icon {
+            display: inline-block;
+            transition: transform 0.2s ease;
+        }
+        /* Rotates indicator arrow when a section gets closed minimized */
+        .collapsed .arrow-icon {
+            transform: rotate(-90deg);
         }
 
         /* Table Responsive Grid Layouts */
         .table-wrapper {
             width: 100%;
             overflow-x: auto;
+            transition: max-height 0.3s ease-out;
         }
+        .collapsed + .table-wrapper {
+            display: none !important;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -129,7 +153,9 @@
     <div class="grid-container">
         
         <div class="status-section" style="border-left: 5px solid #2ecc71;">
-            <h2 style="color: #2ecc71;">▼ Finished Titles ▼</h2>
+            <h2 class="section-header" style="color: #2ecc71;" onclick="toggleSection(this)">
+                <span class="arrow-icon">▼</span> Finished Titles
+            </h2>
             <div class="table-wrapper">
                 <table>
                     <thead>
@@ -149,13 +175,15 @@
                             <td>June 10</td>
                             <td><span style="color:#2ecc71; font-weight:600;">100% Complete</span></td>
                         </tr>
-                        </tbody>
+                    </tbody>
                 </table>
             </div>
         </div>
 
         <div class="status-section" style="border-left: 5px solid #3498db;">
-            <h2 style="color: #3498db;">▼ Ongoing Titles ▼</h2>
+            <h2 class="section-header" style="color: #3498db;" onclick="toggleSection(this)">
+                <span class="arrow-icon">▼</span> Ongoing Titles
+            </h2>
             <div class="table-wrapper">
                 <table>
                     <thead>
@@ -175,13 +203,15 @@
                             <td>July 20</td>
                             <td><span style="color:#3498db; font-weight:600;">80%</span></td>
                         </tr>
-                        </tbody>
+                    </tbody>
                 </table>
             </div>
         </div>
 
         <div class="status-section" style="border-left: 5px solid #e74c3c;">
-            <h2 style="color: #e74c3c;">▼ Delayed Titles ▼</h2>
+            <h2 class="section-header" style="color: #e74c3c;" onclick="toggleSection(this)">
+                <span class="arrow-icon">▼</span> Delayed Titles
+            </h2>
             <div class="table-wrapper">
                 <table>
                     <thead>
@@ -203,7 +233,7 @@
                             <td>Author requested medical leave.</td>
                             <td><span style="color:#e74c3c; font-weight:600;">Delayed</span></td>
                         </tr>
-                        </tbody>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -218,13 +248,17 @@
     <script>
         let chartInstance = null;
 
+        // Toggles data list tables visibility states open/closed
+        window.toggleSection = function(headerElement) {
+            headerElement.classList.toggle('collapsed');
+        };
+
         function updateChart() {
             try {
                 const canvas = document.getElementById('statusPieChart');
                 if (!canvas) return;
                 const ctx = canvas.getContext('2d');
 
-                // Recalculates dynamically based on currently visible filter options
                 const finishedCount = document.querySelectorAll('#finished-body .project-row:not(.hidden-row)').length;
                 const ongoingCount = document.querySelectorAll('#ongoing-body .project-row:not(.hidden-row)').length;
                 const delayedCount = document.querySelectorAll('#delayed-body .project-row:not(.hidden-row)').length;
@@ -256,12 +290,10 @@
         }
 
         window.filterTeam = function(teamName) {
-            // Apply color button highlights
             document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
             if(teamName === 'Phoenix') document.getElementById('btn-phoenix').classList.add('active');
             if(teamName === 'Sibs') document.getElementById('btn-sibs').classList.add('active');
 
-            // Scan rows and show/hide match states instantly
             document.querySelectorAll('.project-row').forEach(row => {
                 const rowTeam = row.getAttribute('data-team');
                 if (rowTeam === teamName) {
@@ -271,11 +303,9 @@
                 }
             });
 
-            // Update statistics
             updateChart();
         };
 
-        // Initialize layout on ready mount
         window.onload = function() {
             filterTeam('Phoenix');
         };
