@@ -48,7 +48,6 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
         .btn.active { color: white; }
-        #btn-all.active { background-color: #7f8c8d; }
         #btn-phoenix.active { background-color: #ff6b6b; }
         #btn-sibs.active { background-color: #4dadf7; }
         
@@ -85,7 +84,6 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
         
-        /* Bulletproof style helper to handle visibility filters */
         .hidden-item {
             display: none !important;
         }
@@ -99,8 +97,7 @@
     </header>
 
     <div class="filter-container">
-        <button id="btn-all" class="btn active" onclick="filterTeam('all')">All Teams</button>
-        <button id="btn-phoenix" class="btn" onclick="filterTeam('Phoenix')">Phoenix Titles</button>
+        <button id="btn-phoenix" class="btn active" onclick="filterTeam('Phoenix')">Phoenix Titles</button>
         <button id="btn-sibs" class="btn" onclick="filterTeam('Sibs')">Sibs Titles</button>
     </div>
 
@@ -109,24 +106,24 @@
         <div class="card" style="border-top: 5px solid #2ecc71;">
             <h2 style="margin-top: 0; font-size: 1.3rem; color: #2c3e50; border-bottom: 2px solid #ecf0f1; padding-bottom: 10px;">Finished Titles</h2>
             <ul id="finished-list" style="list-style-type: disc; padding-left: 20px; line-height: 1.7; margin-bottom: 0;">
-                <li class="project-item" data-team="Phoenix">Grade 1 Math Textbook</li>
-                <li class="project-item" data-team="Sibs">Grade 2 Math Textbook</li>
+                <li class="project-item" data-team="Phoenix">Grade 1 Math Textbook (Phoenix)</li>
+                <li class="project-item" data-team="Sibs">Grade 2 Math Textbook (Sibs)</li>
             </ul>
         </div>
 
         <div class="card" style="border-top: 5px solid #3498db;">
             <h2 style="margin-top: 0; font-size: 1.3rem; color: #2c3e50; border-bottom: 2px solid #ecf0f1; padding-bottom: 10px;">Ongoing Titles</h2>
             <ul id="ongoing-list" style="list-style-type: disc; padding-left: 20px; line-height: 1.7; margin-bottom: 0;">
-                <li class="project-item" data-team="Phoenix">Grade 3 Math Textbook</li>
-                <li class="project-item" data-team="Sibs">Grade 4 Math Textbook</li>
+                <li class="project-item" data-team="Phoenix">Grade 3 Math Textbook (Phoenix)</li>
+                <li class="project-item" data-team="Sibs">Grade 4 Math Textbook (Sibs)</li>
             </ul>
         </div>
 
         <div class="card" style="border-top: 5px solid #e74c3c;">
             <h2 style="margin-top: 0; font-size: 1.3rem; color: #2c3e50; border-bottom: 2px solid #ecf0f1; padding-bottom: 10px;">Delayed Titles</h2>
             <ul id="delayed-list" style="list-style-type: disc; padding-left: 20px; line-height: 1.7; margin-bottom: 0;">
-                <li class="project-item" data-team="Phoenix">Grade 5 Math Textbook</li>
-                <li class="project-item" data-team="Sibs">Grade 6 Math Textbook</li>
+                <li class="project-item" data-team="Phoenix">Grade 5 Math Textbook (Phoenix)</li>
+                <li class="project-item" data-team="Sibs">Grade 6 Math Textbook (Sibs)</li>
             </ul>
         </div>
 
@@ -146,7 +143,62 @@
                 if (!canvas) return;
                 const ctx = canvas.getContext('2d');
 
-                // Simply counts elements actively appearing on your display layout right now
+                // Counts only items that are visible
                 const finishedCount = document.querySelectorAll('#finished-list .project-item:not(.hidden-item)').length;
                 const ongoingCount = document.querySelectorAll('#ongoing-list .project-item:not(.hidden-item)').length;
-                const delayedCount = document.querySelectorAll('#delayed-list .project-item:not(.hidden-item)').length
+                const delayedCount = document.querySelectorAll('#delayed-list .project-item:not(.hidden-item)').length;
+
+                if (chartInstance) {
+                    chartInstance.destroy();
+                }
+
+                if (typeof Chart !== 'undefined') {
+                    chartInstance = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: ['Finished', 'Ongoing', 'Delayed'],
+                            datasets: [{
+                                data: [finishedCount, ongoingCount, delayedCount],
+                                backgroundColor: ['#2ecc71', '#3498db', '#e74c3c'],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: { legend: { position: 'bottom' } }
+                        }
+                    });
+                }
+            } catch (e) {
+                console.error("Chart error: ", e);
+            }
+        }
+
+        window.filterTeam = function(teamName) {
+            // Toggle active button highlight
+            document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
+            if(teamName === 'Phoenix') document.getElementById('btn-phoenix').classList.add('active');
+            if(teamName === 'Sibs') document.getElementById('btn-sibs').classList.add('active');
+
+            // Filter items by checking data-team matching attribute
+            document.querySelectorAll('.project-item').forEach(item => {
+                const itemTeam = item.getAttribute('data-team');
+                if (itemTeam === teamName) {
+                    item.classList.remove('hidden-item');
+                } else {
+                    item.classList.add('hidden-item');
+                }
+            });
+
+            // Re-render pie chart calculations
+            updateChart();
+        };
+
+        // Initialize display to show Phoenix by default on load
+        window.onload = function() {
+            filterTeam('Phoenix');
+        };
+    </script>
+
+</body>
+</html>
