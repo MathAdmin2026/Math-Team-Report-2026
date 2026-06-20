@@ -125,7 +125,7 @@
             display: none !important;
         }
 
-        /* LOCK COLUMN WIDTHS: Forces the table structure to remain fixed */
+        /* LOCK COLUMN WIDTHS: Forces table structure stability */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -137,7 +137,7 @@
             padding: 12px 15px;
             border-bottom: 1px solid #f1f2f6;
             font-size: 0.95rem;
-            word-wrap: break-word; /* Prevents text from breaking layout layout */
+            word-wrap: break-word;
         }
         th {
             background-color: #f8f9fa;
@@ -146,20 +146,21 @@
         }
         tr:hover { background-color: #fafafa; }
 
-        /* Specific Column Width Assignments */
-        .col-title { width: 35%; }
-        .col-editor { width: 20%; }
+        /* Fixed Column Width Allocations for Standard Tables (Finished / Ongoing) */
+        .col-title { width: 30%; }
+        .col-spine { width: 12%; }
+        .col-editor { width: 18%; }
         .col-artist { width: 15%; }
-        .col-date { width: 15%; }
-        .col-status { width: 15%; }
-        .col-reason { width: 30%; } /* Accommodates long delay text gracefully */
+        .col-date { width: 13%; }
+        .col-status { width: 12%; }
 
-        /* Adjustment for Delayed Table to account for extra reason column */
-        .table-delayed .col-title { width: 25%; }
-        .table-delayed .col-editor { width: 15%; }
-        .table-delayed .col-artist { width: 15%; }
-        .table-delayed .col-date { width: 15%; }
-        .table-delayed .col-status { width: 10%; }
+        /* Fixed Column Width Allocations for Delayed Table */
+        .col-delayed-title { width: 22%; }
+        .col-delayed-spine { width: 12%; }
+        .col-delayed-editor { width: 15%; }
+        .col-delayed-artist { width: 15%; }
+        .col-delayed-date { width: 13%; }
+        .col-delayed-reason { width: 23%; }
 
         .chart-box {
             max-width: 380px;
@@ -174,308 +175,3 @@
     </style>
 </head>
 <body>
-
-    <header>
-        <h1>EPD-Math Team Status Report</h1>
-        <p>Combined Operations Dashboard | Date: June 2026</p>
-    </header>
-
-    <div class="filter-container">
-        <button id="btn-phoenix" class="btn active" onclick="filterTeam('Phoenix')">Phoenix Publishing House</button>
-        <button id="btn-sibs" class="btn" onclick="filterTeam('Sibs')">Sibs Publishing House</button>
-    </div>
-
-    <div class="grid-container">
-        
-        <div class="status-section" style="border-left: 5px solid #2ecc71;">
-            <h2 class="section-header" style="color: #2ecc71;" onclick="toggleSection(this)">
-                <span class="arrow-icon">▼</span> Finished Titles
-            </h2>
-            <div class="table-wrapper">
-                <table>
-                    <colgroup>
-                        <col class="col-title">
-                        <col class="col-editor">
-                        <col class="col-artist">
-                        <col class="col-date">
-                        <col class="col-status">
-                    </colgroup>
-                    <thead>
-                        <tr>
-                            <th>Book Title</th>
-                            <th>Editor</th>
-                            <th>Artist</th>
-                            <th>Completion Date</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody id="finished-body">
-                        <tr class="project-row" data-team="Phoenix">
-                            <td><b>Early Childhood Reading Pack</b></td>
-                            <td>Dr. Maria Santos</td>
-                            <td>Alan Cruz</td>
-                            <td>June 10</td>
-                            <td><span style="color:#2ecc71; font-weight:600;">100% Complete</span></td>
-                        </tr>
-                        <tr class="project-row" data-team="Phoenix">
-                            <td><b>Grade 1 Math Foundations</b></td>
-                            <td>Dr. Maria Santos</td>
-                            <td>Alan Cruz</td>
-                            <td>June 12</td>
-                            <td><span style="color:#2ecc71; font-weight:600;">100% Complete</span></td>
-                        </tr>
-                        <tr class="project-row" data-team="Phoenix">
-                            <td><b>Grade 2 Elementary Geometry</b></td>
-                            <td>Dr. Maria Santos</td>
-                            <td>Luna Reyes</td>
-                            <td>June 15</td>
-                            <td><span style="color:#2ecc71; font-weight:600;">100% Complete</span></td>
-                        </tr>
-                        <tr class="project-row" data-team="Sibs">
-                            <td><b>Primary Numbers Discovery A</b></td>
-                            <td>John Smith</td>
-                            <td>Ray Sunga</td>
-                            <td>May 28</td>
-                            <td><span style="color:#2ecc71; font-weight:600;">100% Complete</span></td>
-                        </tr>
-                        <tr class="project-row" data-team="Sibs">
-                            <td><b>Primary Numbers Discovery B</b></td>
-                            <td>John Smith</td>
-                            <td>Ray Sunga</td>
-                            <td>June 02</td>
-                            <td><span style="color:#2ecc71; font-weight:600;">100% Complete</span></td>
-                        </tr>
-                        <tr class="project-row" data-team="Sibs">
-                            <td><b>Kindergarten Math Explorer</b></td>
-                            <td>John Smith</td>
-                            <td>Elena Diaz</td>
-                            <td>June 14</td>
-                            <td><span style="color:#2ecc71; font-weight:600;">100% Complete</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="status-section" style="border-left: 5px solid #3498db;">
-            <h2 class="section-header" style="color: #3498db;" onclick="toggleSection(this)">
-                <span class="arrow-icon">▼</span> Ongoing Titles
-            </h2>
-            <div class="table-wrapper">
-                <table>
-                    <colgroup>
-                        <col class="col-title">
-                        <col class="col-editor">
-                        <col class="col-artist">
-                        <col class="col-date">
-                        <col class="col-status">
-                    </colgroup>
-                    <thead>
-                        <tr>
-                            <th>Book Title</th>
-                            <th>Editor</th>
-                            <th>Artist</th>
-                            <th>Target Release Date</th>
-                            <th>Progress</th>
-                        </tr>
-                    </thead>
-                    <tbody id="ongoing-body">
-                        <tr class="project-row" data-team="Phoenix">
-                            <td><b>Advanced Filipino Grammar</b></td>
-                            <td>Grace Poe</td>
-                            <td>Luna Reyes</td>
-                            <td>July 20</td>
-                            <td><span style="color:#3498db; font-weight:600;">80%</span></td>
-                        </tr>
-                        <tr class="project-row" data-team="Phoenix">
-                            <td><b>Grade 3 Advanced Word Problems</b></td>
-                            <td>Grace Poe</td>
-                            <td>Luna Reyes</td>
-                            <td>July 25</td>
-                            <td><span style="color:#3498db; font-weight:600;">65%</span></td>
-                        </tr>
-                        <tr class="project-row" data-team="Phoenix">
-                            <td><b>Grade 4 Intermediate Fractions</b></td>
-                            <td>Dr. Maria Santos</td>
-                            <td>Mark Agno</td>
-                            <td>August 05</td>
-                            <td><span style="color:#3498db; font-weight:600;">40%</span></td>
-                        </tr>
-                        <tr class="project-row" data-team="Sibs">
-                            <td><b>Essential Algebra Skills Vol. 1</b></td>
-                            <td>Jaime Caro</td>
-                            <td>Elena Diaz</td>
-                            <td>July 15</td>
-                            <td><span style="color:#3498db; font-weight:600;">90%</span></td>
-                        </tr>
-                        <tr class="project-row" data-team="Sibs">
-                            <td><b>Essential Algebra Skills Vol. 2</b></td>
-                            <td>Jaime Caro</td>
-                            <td>Elena Diaz</td>
-                            <td>August 12</td>
-                            <td><span style="color:#3498db; font-weight:600;">55%</span></td>
-                        </tr>
-                        <tr class="project-row" data-team="Sibs">
-                            <td><b>Intermediate Trigonometry Workbook</b></td>
-                            <td>John Smith</td>
-                            <td>Ray Sunga</td>
-                            <td>August 30</td>
-                            <td><span style="color:#3498db; font-weight:600;">20%</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="status-section" style="border-left: 5px solid #e74c3c;">
-            <h2 class="section-header" style="color: #e74c3c;" onclick="toggleSection(this)">
-                <span class="arrow-icon">▼</span> Delayed Titles
-            </h2>
-            <div class="table-wrapper">
-                <table class="table-delayed">
-                    <colgroup>
-                        <col class="col-title">
-                        <col class="col-editor">
-                        <col class="col-artist">
-                        <col class="col-date">
-                        <col class="col-status">
-                        <col class="col-reason">
-                    </colgroup>
-                    <thead>
-                        <tr>
-                            <th>Book Title</th>
-                            <th>Editor</th>
-                            <th>Artist</th>
-                            <th>Revised Target Date</th>
-                            <th>Status</th>
-                            <th>Reason for Delay</th>
-                        </tr>
-                    </thead>
-                    <tbody id="delayed-body">
-                        <tr class="project-row" data-team="Phoenix">
-                            <td><b>Grade 5 Comprehensive Statistics</b></td>
-                            <td>Grace Poe</td>
-                            <td>Mark Agno</td>
-                            <td>September 05</td>
-                            <td><span style="color:#e74c3c; font-weight:600;">Delayed</span></td>
-                            <td>Awaiting finalized curriculum syllabus.</td>
-                        </tr>
-                        <tr class="project-row" data-team="Phoenix">
-                            <td><b>Grade 6 Practical Math Applications</b></td>
-                            <td>Dr. Maria Santos</td>
-                            <td>Alan Cruz</td>
-                            <td>September 15</td>
-                            <td><span style="color:#e74c3c; font-weight:600;">Delayed</span></td>
-                            <td>Delayed due to graphic asset revision pipelines.</td>
-                        </tr>
-                        <tr class="project-row" data-team="Phoenix">
-                            <td><b>Junior High Math Core Index</b></td>
-                            <td>Grace Poe</td>
-                            <td>Luna Reyes</td>
-                            <td>October 01</td>
-                            <td><span style="color:#e74c3c; font-weight:600;">Delayed</span></td>
-                            <td>Pending peer review from regional board.</td>
-                        </tr>
-                        <tr class="project-row" data-team="Sibs">
-                            <td><b>Senior High Calculus</b></td>
-                            <td>Jaime Caro</td>
-                            <td>Ray Sunga</td>
-                            <td>September 20</td>
-                            <td><span style="color:#e74c3c; font-weight:600;">Delayed</span></td>
-                            <td>Author requested medical leave.</td>
-                        </tr>
-                        <tr class="project-row" data-team="Sibs">
-                            <td><b>Applied Business Mathematics</b></td>
-                            <td>John Smith</td>
-                            <td>Elena Diaz</td>
-                            <td>October 10</td>
-                            <td><span style="color:#e74c3c; font-weight:600;">Delayed</span></td>
-                            <td>Pending correction of workbook appendices.</td>
-                        </tr>
-                        <tr class="project-row" data-team="Sibs">
-                            <td><b>Advanced Discrete Math Structures</b></td>
-                            <td>Jaime Caro</td>
-                            <td>Ray Sunga</td>
-                            <td>October 25</td>
-                            <td><span style="color:#e74c3c; font-weight:600;">Delayed</span></td>
-                            <td>Awaiting final typography and print sign-offs.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="chart-box">
-            <h3 style="text-align: center; margin-top: 0; margin-bottom: 15px; color: #2c3e50; font-size: 1.2rem;">Project Status Breakdown</h3>
-            <canvas id="statusPieChart" style="max-width: 100%; height: auto;"></canvas>
-        </div>
-
-    </div>
-
-    <script>
-        let chartInstance = null;
-
-        window.toggleSection = function(headerElement) {
-            headerElement.classList.toggle('collapsed');
-        };
-
-        function updateChart() {
-            try {
-                const canvas = document.getElementById('statusPieChart');
-                if (!canvas) return;
-                const ctx = canvas.getContext('2d');
-
-                const finishedCount = document.querySelectorAll('#finished-body .project-row:not(.hidden-row)').length;
-                const ongoingCount = document.querySelectorAll('#ongoing-body .project-row:not(.hidden-row)').length;
-                const delayedCount = document.querySelectorAll('#delayed-body .project-row:not(.hidden-row)').length;
-
-                if (chartInstance) {
-                    chartInstance.destroy();
-                }
-
-                if (typeof Chart !== 'undefined') {
-                    chartInstance = new Chart(ctx, {
-                        type: 'pie',
-                        data: {
-                            labels: ['Finished', 'Ongoing', 'Delayed'],
-                            datasets: [{
-                                data: [finishedCount, ongoingCount, delayedCount],
-                                backgroundColor: ['#2ecc71', '#3498db', '#e74c3c'],
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            plugins: { legend: { position: 'bottom' } }
-                        }
-                    });
-                }
-            } catch (e) {
-                console.error("Chart generation error: ", e);
-            }
-        }
-
-        window.filterTeam = function(teamName) {
-            document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
-            if(teamName === 'Phoenix') document.getElementById('btn-phoenix').classList.add('active');
-            if(teamName === 'Sibs') document.getElementById('btn-sibs').classList.add('active');
-
-            document.querySelectorAll('.project-row').forEach(row => {
-                const rowTeam = row.getAttribute('data-team');
-                if (rowTeam === teamName) {
-                    row.classList.remove('hidden-row');
-                } else {
-                    row.classList.add('hidden-row');
-                }
-            });
-
-            updateChart();
-        };
-
-        window.onload = function() {
-            filterTeam('Phoenix');
-        };
-    </script>
-
-</body>
-</html>
