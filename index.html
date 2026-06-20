@@ -6,10 +6,10 @@
     <title>EPD-Math Status Report</title>
 
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://mathadmin2026.github.io/Math-Team-Report-2026/">
+    <meta property="og:url" content="https://mathadmin2026.github.io/math-team-report-2026/">
     <meta property="og:title" content="EPD-Math Status Report">
     <meta property="og:description" content="Combined Operations Dashboard | Date: June 2026">
-    <meta property="og:image" content="https://mathadmin2026.github.io/Math-Team-Report-2026/social-preview.png">
+    <meta property="og:image" content="https://mathadmin2026.github.io/math-team-report-2026/social-preview.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
 
@@ -25,7 +25,6 @@
             font-size: 13px;
         }
         
-        /* Corporate Slate Header Banner */
         header {
             background-color: #1a252f;
             color: #ffffff;
@@ -50,11 +49,10 @@
             letter-spacing: 1px;
         }
 
-        /* Filter Button Segment Navigation Controls */
         .filter-container {
             display: flex;
             justify-content: center;
-            gap: 20px; /* Restored elegant split layout gap */
+            gap: 20px;
             margin-bottom: 24px;
             padding: 0 20px;
         }
@@ -63,7 +61,7 @@
             font-size: 0.88rem;
             font-weight: 600;
             border: none;
-            border-radius: 25px; /* Restored clean rounded badge profile */
+            border-radius: 25px;
             cursor: pointer;
             transition: all 0.2s ease;
             background-color: #e0e0e0;
@@ -75,11 +73,9 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         
-        /* EXACT BRAND IDENTITY COLORWAYS RESTORED */
         #btn-phoenix.active { background-color: #e67e22; color: white; }
         #btn-sibs.active { background-color: #e74c3c; color: white; }
 
-        /* Compact Layout Framework */
         .grid-container {
             display: flex;
             flex-direction: column;
@@ -122,7 +118,6 @@
         }
         .collapsed + .table-wrapper { display: none !important; }
 
-        /* Fixed Layout Architecture: Dense Rows */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -131,7 +126,7 @@
             table-layout: fixed; 
         }
         th, td {
-            padding: 7px 12px; /* Tight professional padding */
+            padding: 7px 12px;
             border-bottom: 1px solid #edf2f7;
             font-size: 0.85rem; 
             word-wrap: break-word;
@@ -147,15 +142,232 @@
         }
         tr:hover { background-color: #f8fafc; }
 
-        /* STRICT COLUMN GRID SYNC ACROSS ALL SECTIONS */
-        .col-title { width: 26%; }
-        .col-spine { width: 10%; }
-        .col-editor { width: 16%; }
-        .col-artist { width: 16%; }
-        .col-date { width: 14%; }
-        .col-meta { width: 18%; }
-
-        /* Status Colors */
         .badge-success { color: #2f855a; font-weight: 600; font-size: 0.8rem; }
         .badge-info { color: #2b6cb0; font-weight: 600; font-size: 0.8rem; }
         .badge-danger { color: #c53030; font-weight: 500; font-size: 0.8rem; }
+
+        .chart-box {
+            max-width: 340px;
+            margin: 16px auto 0 auto;
+            background: #ffffff;
+            padding: 16px;
+            border-radius: 4px;
+            border: 1px solid #e2e8f0;
+        }
+        .chart-box h3 {
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 12px;
+            color: #4a5568;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+        
+        .hidden-row { display: none !important; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>EPD-Math Status Report</h1>
+        <p>Combined Operations Dashboard | June 2026</p>
+    </header>
+
+    <div class="filter-container">
+        <button id="btn-phoenix" class="btn active" onclick="filterTeam('Phoenix')">Phoenix Publishing House</button>
+        <button id="btn-sibs" class="btn" onclick="filterTeam('Sibs')">Sibs Publishing House</button>
+    </div>
+
+    <div class="grid-container">
+        
+        <div class="status-section" style="border-top: 3px solid #48bb78;">
+            <h2 class="section-header" style="color: #2f855a;" onclick="toggleSection(this)">
+                <span class="arrow-icon">▼</span> Finished Titles
+            </h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 26%;">Book Title</th>
+                            <th style="width: 10%;">Spine</th>
+                            <th style="width: 16%;">Editor</th>
+                            <th style="width: 16%;">Artist</th>
+                            <th style="width: 14%;">Completion Date</th>
+                            <th style="width: 18%;">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="finished-body">
+                        <tr class="project-row" data-team="Phoenix">
+                            <td><b>Soaring 6 TWE</b></td><td>RED</td><td>Junel</td><td>Onai</td><td>June 10</td><td><span class="badge-success">100% Complete</span></td>
+                        </tr>
+                        <tr class="project-row" data-team="Phoenix">
+                            <td><b>NCM 9 TWE</b></td><td>RED</td><td>Camille</td><td>Onai</td><td>June 12</td><td><span class="badge-success">100% Complete</span></td>
+                        </tr>
+                        <tr class="project-row" data-team="Phoenix">
+                            <td><b>Soaring Finite 1 TB</b></td><td>RED</td><td>Ronald</td><td>Onai</td><td>June 15</td><td><span class="badge-success">100% Complete</span></td>
+                        </tr>
+                        <tr class="project-row" data-team="Sibs">
+                            <td><b>Book Title and Level</b></td><td>RED</td><td>Name</td><td>Name</td><td>May 28</td><td><span class="badge-success">100% Complete</span></td>
+                        </tr>
+                        <tr class="project-row" data-team="Sibs">
+                            <td><b>Book Title and Level</b></td><td>RED</td><td>Name</td><td>Name</td><td>June 02</td><td><span class="badge-success">100% Complete</span></td>
+                        </tr>
+                        <tr class="project-row" data-team="Sibs">
+                            <td><b>Book Title and Level</b></td><td>RED</td><td>Name</td><td>Name</td><td>June 14</td><td><span class="badge-success">100% Complete</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="status-section" style="border-top: 3px solid #4299e1;">
+            <h2 class="section-header" style="color: #2b6cb0;" onclick="toggleSection(this)">
+                <span class="arrow-icon">▼</span> Ongoing Titles
+            </h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 26%;">Book Title</th>
+                            <th style="width: 10%;">Spine</th>
+                            <th style="width: 16%;">Editor</th>
+                            <th style="width: 16%;">Artist</th>
+                            <th style="width: 14%;">Target Release</th>
+                            <th style="width: 18%;">Progress</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ongoing-body">
+                        <tr class="project-row" data-team="Phoenix">
+                            <td><b>Book Title and Level</b></td><td>RED</td><td>Name</td><td>Name</td><td>July 20</td><td><span class="badge-info">80%</span></td>
+                        </tr>
+                        <tr class="project-row" data-team="Phoenix">
+                            <td><b>Book Title and Level</b></td><td>RED</td><td>Name</td><td>Name</td><td>July 25</td><td><span class="badge-info">65%</span></td>
+                        </tr>
+                        <tr class="project-row" data-team="Phoenix">
+                            <td><b>Book Title and Level</b></td><td>BLUE</td><td>Name</td><td>Name</td><td>August 05</td><td><span class="badge-info">40%</span></td>
+                        </tr>
+                        <tr class="project-row" data-team="Sibs">
+                            <td><b>Book Title and Level</b></td><td>BLUE</td><td>Name</td><td>Name</td><td>July 15</td><td><span class="badge-info">90%</span></td>
+                        </tr>
+                        <tr class="project-row" data-team="Sibs">
+                            <td><b>Book Title and Level</b></td><td>GREEN</td><td>Name</td><td>Name</td><td>August 12</td><td><span class="badge-info">55%</span></td>
+                        </tr>
+                        <tr class="project-row" data-team="Sibs">
+                            <td><b>Book Title and Level</b></td><td>RED</td><td>Name</td><td>Name</td><td>August 30</td><td><span class="badge-info">20%</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="status-section" style="border-top: 3px solid #f56565;">
+            <h2 class="section-header" style="color: #c53030;" onclick="toggleSection(this)">
+                <span class="arrow-icon">▼</span> Delayed Titles
+            </h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 26%;">Book Title</th>
+                            <th style="width: 10%;">Spine</th>
+                            <th style="width: 16%;">Editor</th>
+                            <th style="width: 16%;">Artist</th>
+                            <th style="width: 14%;">Revised Target</th>
+                            <th style="width: 18%;">Reason for Delay</th>
+                        </tr>
+                    </thead>
+                    <tbody id="delayed-body">
+                        <tr class="project-row" data-team="Phoenix">
+                            <td><b>Book Title and Level</b></td><td>RED</td><td>Name</td><td>Name</td><td>September 05</td><td><span class="badge-danger">Awaiting finalized curriculum syllabus.</span></td>
+                        </tr>
+                        <tr class="project-row" data-team="Phoenix">
+                            <td><b>Book Title and Level</b></td><td>RED</td><td>Name</td><td>Name</td><td>September 15</td><td><span class="badge-danger">Delayed due to graphic asset pipelines.</span></td>
+                        </tr>
+                        <tr class="project-row" data-team="Phoenix">
+                            <td><b>Book Title and Level</b></td><td>RED</td><td>Name</td><td>Name</td><td>October 01</td><td><span class="badge-danger">Pending board peer review.</span></td>
+                        </tr>
+                        <tr class="project-row" data-team="Sibs">
+                            <td><b>Book Title and Level</b></td><td>RED</td><td>Name</td><td>Name</td><td>September 20</td><td><span class="badge-danger">Author requested medical leave.</span></td>
+                        </tr>
+                        <tr class="project-row" data-team="Sibs">
+                            <td><b>Book Title and Level</b></td><td>BLUE</td><td>Name</td><td>Name</td><td>October 10</td><td><span class="badge-danger">Pending workbook appendices correction.</span></td>
+                        </tr>
+                        <tr class="project-row" data-team="Sibs">
+                            <td><b>Book Title and Level</b></td><td>GREEN</td><td>Name</td><td>Name</td><td>October 25</td><td><span class="badge-danger">Awaiting final print sign-offs.</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="chart-box">
+            <h3>Project Status Breakdown</h3>
+            <canvas id="statusPieChart"></canvas>
+        </div>
+
+    </div>
+
+    <script>
+        let chartInstance = null;
+
+        window.toggleSection = function(headerElement) {
+            headerElement.classList.toggle('collapsed');
+        };
+
+        function updateChart() {
+            const canvas = document.getElementById('statusPieChart');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            const finishedCount = document.querySelectorAll('#finished-body .project-row:not(.hidden-row)').length;
+            const ongoingCount = document.querySelectorAll('#ongoing-body .project-row:not(.hidden-row)').length;
+            const delayedCount = document.querySelectorAll('#delayed-body .project-row:not(.hidden-row)').length;
+
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+
+            if (typeof Chart !== 'undefined') {
+                chartInstance = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Finished', 'Ongoing', 'Delayed'],
+                        datasets: [{
+                            data: [finishedCount, ongoingCount, delayedCount],
+                            backgroundColor: ['#48bb78', '#4299e1', '#f56565'],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } } }
+                    }
+                });
+            }
+        }
+
+        window.filterTeam = function(teamName) {
+            document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
+            if(teamName === 'Phoenix') document.getElementById('btn-phoenix').classList.add('active');
+            if(teamName === 'Sibs') document.getElementById('btn-sibs').classList.add('active');
+
+            document.querySelectorAll('.project-row').forEach(row => {
+                const rowTeam = row.getAttribute('data-team');
+                if (rowTeam === teamName) {
+                    row.classList.remove('hidden-row');
+                } else {
+                    row.classList.add('hidden-row');
+                }
+            });
+
+            updateChart();
+        };
+
+        document.addEventListener("DOMContentLoaded", function() {
+            filterTeam('Phoenix');
+            setTimeout(updateChart, 300);
+        });
+    </script>
+
+</body>
+</html>
