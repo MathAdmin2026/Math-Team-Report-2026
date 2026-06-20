@@ -52,13 +52,14 @@
         .filter-container {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 12px;
             margin-bottom: 24px;
             padding: 0 20px;
+            flex-wrap: wrap; /* Allows buttons to stack elegantly on ultra-small screens */
         }
         .btn {
-            padding: 10px 28px;
-            font-size: 0.88rem;
+            padding: 10px 24px;
+            font-size: 0.85rem;
             font-weight: 600;
             border: none;
             border-radius: 25px;
@@ -82,7 +83,7 @@
             gap: 20px;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 15px;
         }
         .status-section {
             background: #ffffff;
@@ -112,9 +113,11 @@
         }
         .collapsed .arrow-icon { transform: rotate(-90deg); }
 
+        /* MOBILE SCROLL CONTAINER ACTIVATED */
         .table-wrapper {
             width: 100%;
             overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
         .collapsed + .table-wrapper { display: none !important; }
 
@@ -123,12 +126,14 @@
             border-collapse: collapse;
             margin-top: 8px;
             text-align: left;
-            table-layout: fixed; 
+            table-layout: fixed;
+            min-width: 750px; /* Forces standard row footprint; blocks vertical crushing */
         }
         th, td {
-            padding: 7px 12px;
+            padding: 8px 10px;
             border-bottom: 1px solid #edf2f7;
             font-size: 0.85rem; 
+            white-space: normal;
             word-wrap: break-word;
         }
         th {
@@ -148,6 +153,8 @@
 
         .chart-box {
             max-width: 340px;
+            width: 100%;
+            box-sizing: border-box;
             margin: 16px auto 0 auto;
             background: #ffffff;
             padding: 16px;
@@ -188,10 +195,10 @@
                 <table>
                     <thead>
                         <tr>
-                            <th style="width: 26%;">Book Title</th>
+                            <th style="width: 28%;">Book Title</th>
                             <th style="width: 10%;">Spine</th>
-                            <th style="width: 16%;">Editor</th>
-                            <th style="width: 16%;">Artist</th>
+                            <th style="width: 15%;">Editor</th>
+                            <th style="width: 15%;">Artist</th>
                             <th style="width: 14%;">Completion Date</th>
                             <th style="width: 18%;">Status</th>
                         </tr>
@@ -228,10 +235,10 @@
                 <table>
                     <thead>
                         <tr>
-                            <th style="width: 26%;">Book Title</th>
+                            <th style="width: 28%;">Book Title</th>
                             <th style="width: 10%;">Spine</th>
-                            <th style="width: 16%;">Editor</th>
-                            <th style="width: 16%;">Artist</th>
+                            <th style="width: 15%;">Editor</th>
+                            <th style="width: 15%;">Artist</th>
                             <th style="width: 14%;">Target Release</th>
                             <th style="width: 18%;">Progress</th>
                         </tr>
@@ -268,10 +275,10 @@
                 <table>
                     <thead>
                         <tr>
-                            <th style="width: 26%;">Book Title</th>
+                            <th style="width: 28%;">Book Title</th>
                             <th style="width: 10%;">Spine</th>
-                            <th style="width: 16%;">Editor</th>
-                            <th style="width: 16%;">Artist</th>
+                            <th style="width: 15%;">Editor</th>
+                            <th style="width: 15%;">Artist</th>
                             <th style="width: 14%;">Revised Target</th>
                             <th style="width: 18%;">Reason for Delay</th>
                         </tr>
